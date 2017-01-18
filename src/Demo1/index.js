@@ -36,9 +36,9 @@ const makeParticle = (i, n, r = 0) => {
   const name = names[idx]
 
   tetryon.entity()
-    .set(Transform, { position, rotation, scale: 0.6 })
+    .set(Transform, { position, rotation, scale: randomFloat(0.1, 0.5) })
     .set(Physics, { force: force, mass: 1, friction: 0 })
-    .set(Sprite, { name, alpha: randomFloat(0.1, 0.9) })
+    .set(Sprite, { name })
 }
 
 const pin = (x, y, scale = 0.1) => {
@@ -81,13 +81,18 @@ const setupEngine = () => {
 }
 
 const populateWorld = () => {
-  function makeParticles(r) {
-    const numParticles = 6
-    for (let i = 0; i < numParticles; i++) {
-      makeParticle(i, numParticles, r)
-    }
-  }
   makeParticle(0, 1, 40)
+}
+
+function makeParticles(r = randomFloat(-PI / 2, PI / 2)) {
+  const numParticles = 6
+  for (let i = 0; i < numParticles; i++) {
+    makeParticle(i, numParticles, r)
+  }
+}
+
+const actions = {
+  makeParticles,
 }
 
 const setupSprites = (callback) => {
@@ -110,3 +115,4 @@ const demo1 = () => {
 }
 
 export default demo1
+export { actions }

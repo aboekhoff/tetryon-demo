@@ -1,6 +1,6 @@
 import Tetryon, { modules, math, systems } from 'tetryon'
 const { d2, input } = modules
-const { cos, sin, randomFloat, Vec2, PI } = math
+const { cos, sin, randomInt, randomFloat, Vec2, PI } = math
 const { Sprite, Transform, Physics, render, physics } = d2
 
 const particleTextures = {
@@ -20,10 +20,10 @@ const world = {
 
 let tetryon = null
 
-const makeParticle = (i, n, r = 0) => {
-  const step = (Math.PI * 2) / n
+const makeParticle = (i, n, r = 0, spriteName = null) => {
+  const step = (Math.PI * 2 + randomFloat(-PI/4, PI/4)) / n
   const rotation = -Math.PI + r + i * step
-  const forceAmt = 400
+  const forceAmt = randomFloat(200, 600)
   const position = Vec2(0, 0)
   const force = Vec2(
     cos(rotation) * forceAmt,
@@ -31,14 +31,16 @@ const makeParticle = (i, n, r = 0) => {
   )
 
   // const names = Object.keys(particleTextures)
-  const names = ['snow1', 'fire3']
-  const idx = Math.round(Math.random() * (names.length - 1))
-  const name = names[idx]
+  if (!spriteName) {
+    const names = ['snow1', 'fire3', 'smoke1']
+    const idx = Math.round(Math.random() * (names.length - 1))
+    spriteName = names[idx]
+  }
 
   tetryon.entity()
     .set(Transform, { position, rotation, scale: randomFloat(0.1, 0.5) })
     .set(Physics, { force: force, mass: 1, friction: 0 })
-    .set(Sprite, { name })
+    .set(Sprite, { name: spriteName, alpha: randomFloat(0.1, 1) })
 }
 
 const pin = (x, y, scale = 0.1) => {
@@ -84,15 +86,19 @@ const populateWorld = () => {
   makeParticle(0, 1, 40)
 }
 
-function makeParticles(r = randomFloat(-PI / 2, PI / 2)) {
-  const numParticles = 6
+function makeParticles(spriteName = null) {
+  const r = randomFloat(-PI / 2, PI / 2)
+  const numParticles = randomInt(3, 12)
   for (let i = 0; i < numParticles; i++) {
-    makeParticle(i, numParticles, r)
+    makeParticle(i, numParticles, r, spriteName)
   }
 }
 
 const actions = {
-  makeParticles,
+  randomParticles: () => { makeParticles() },
+  snowParticles: () => { makeParticles('snow1') },
+  fireParticles: () => { makeParticles('fire3') },
+  smokeParticles: () => { makeParticles('smoke1') },
 }
 
 const setupSprites = (callback) => {

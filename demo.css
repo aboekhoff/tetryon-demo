@@ -112,8 +112,8 @@ canvas {
   transform-origin: top;
   -webkit-transfrom-origin: top;
 
-  transition: transform 0.26s ease, max-height 0.5s ease;
-  -webkit-transition: transform 0.26s ease, max-height 0.5s ease;
+  transition: transform 0.26s ease, max-height 0.26s ease;
+  -webkit-transition: transform 0.26s ease, max-height 0.26s ease;
 
   margin-top: 0px;
   padding: 0px;

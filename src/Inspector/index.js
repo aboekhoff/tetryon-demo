@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import * as components from './components'
+import { Inspector } from './components'
 
-export default class Inspector {
+export default class UI {
   constructor(content = {}, options = {}) {
     this.root = options.root
 
@@ -28,7 +28,7 @@ export default class Inspector {
   render() {
     const { content, onChange, root } = this
     const component = (
-      <components.Inspector content={content} onChange={onChange}/>
+      <Inspector content={content} onChange={onChange}/>
     )
     ReactDOM.render(component, root)
   }

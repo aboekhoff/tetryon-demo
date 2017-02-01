@@ -1,17 +1,15 @@
 import Demo1, { actions } from './Demo1'
 import Inspector from './Inspector'
 
-let tetryon = Demo1()
+let game = Demo1()
 
-const inspector = new Inspector({
-  Tetryon: {
-    start: () => { tetryon.start() },
-    stop: () => { tetryon.stop() },
-    tick: () => { tetryon.tick() },
-  },
-  Actions: actions,
-})
+// const inspector = new Inspector({
+//   Tetryon: {
+//     start: () => { game.start() },
+//     stop: () => { game.stop() },
+//     tick: () => { game.tickOnce() },
+//   },
+//   Actions: actions,
+// })
 
-console.log(inspector)
-
-inspector.render()
+// nspector.render()

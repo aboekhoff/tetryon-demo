@@ -2,8 +2,9 @@ import React from 'react'
 import Accordion from './Accordion'
 import Instaform from './Instaform'
 import classnames from 'classnames'
-import { modules } from 'tetryon'
-const keyboard = modules.input.keyboard
+import tetryon from 'tetryon'
+console.log(tetryon.services)
+const keyboard = tetryon.services.Input.keyboard
 
 export default class Inspector extends React.Component {
   constructor(props) {
